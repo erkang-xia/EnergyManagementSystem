@@ -11,6 +11,7 @@ import {
   DialogTitle,
 } from '@mui/material';
 import FormButton from './modules/form/FormButton';
+import axios from 'axios';
 
 const filter = createFilterOptions();
 
@@ -31,13 +32,74 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
     setOpen(false);
   };
 
-  const handleSubmit = (event) => {
+  const addDevice = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8800/device`,
+        {
+          LocationID: locationID.title,
+          Type: type.title,
+          ModelNumber: model.title,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      return response.data; // Return the response (or any other relevant data)
+    } catch (error) {
+      console.error('Error add device:', error);
+      throw error; // Re-throw the error if you want to handle it in handleSubmit
+    }
+  };
+
+  const removeDevice = async () => {
+    try {
+      const response = await axios.post(
+        `http://localhost:8800/removeDevice`,
+        {
+          LocationID: locationID.title,
+          Type: type.title,
+          ModelNumber: model.title,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+
+      return response.data; // Return the response (or any other relevant data)
+    } catch (error) {
+      console.error('Error add device:', error);
+      throw error; // Re-throw the error if you want to handle it in handleSubmit
+    }
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(locationID);
-    console.log(type); // This will log the selected value
-    console.log(model);
-    setSent(true);
-    handleClose();
+
+    try {
+      await addDevice(); // Wait for addDevice to complete
+      setSent(true);
+      handleClose();
+      // Refresh the page or update component state here
+      window.location.reload();
+    } catch (error) {
+      // Handle error (e.g., show error message in the UI)
+    }
+  };
+
+  const handleRemove = async (event) => {
+    event.preventDefault();
+
+    try {
+      await removeDevice(); // Wait for addDevice to complete
+      setSent(true);
+      handleClose();
+      // Refresh the page or update component state here
+      window.location.reload();
+    } catch (error) {
+      // Handle error (e.g., show error message in the UI)
+    }
   };
 
   const l = [{ title: '105' }, { title: '102' }];
@@ -45,20 +107,9 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
   return (
     <div>
       <Button onClick={handleClickOpen} variant="contained" color="success">
-        <Box sx={{ fontWeight: 'medium' }}>Add New Device</Box>
+        <Box sx={{ fontWeight: 'medium' }}> Manage Device</Box>
       </Button>
       <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        {/* <DialogTitle
-          // sx={{
-          //   color: '#008000',
-          // }}
-          sx={{
-            //You can copy the code below in your theme
-            bgcolor: '#ECFADC',
-          }}
-        >
-          Add a New Device
-        </DialogTitle> */}
         <DialogContent
           style={{
             background: 'linear-gradient(to right bottom,#FFFFFF, #ECFADC)',
@@ -95,7 +146,7 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                   if (inputValue !== '' && !isExisting) {
                     filtered.push({
                       inputValue,
-                      title: `Add "${inputValue}"`,
+                      title: `You Need to Add a New Location First`,
                     });
                   }
                   return filtered;
@@ -103,7 +154,7 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 selectOnFocus
                 clearOnBlur
                 handleHomeEndKeys
-                id="free-solo-with-text-demo"
+                id="locationID"
                 options={locationIds ? locationIds : l}
                 getOptionLabel={(option) => {
                   if (typeof option === 'string') {
@@ -120,11 +171,7 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 sx={{ width: 300, mx: 'auto' }}
                 freeSolo
                 renderInput={(params) => (
-                  <TextField
-                    color="success"
-                    {...params}
-                    label="Free solo with text demo"
-                  />
+                  <TextField color="success" {...params} label="LocationID" />
                 )}
               />
             </Box>
@@ -161,7 +208,7 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 selectOnFocus
                 clearOnBlur
                 handleHomeEndKeys
-                id="free-solo-with-text-demo"
+                id="type"
                 options={types ? types : l}
                 getOptionLabel={(option) => {
                   if (typeof option === 'string') {
@@ -178,11 +225,7 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 sx={{ width: 300, mx: 'auto' }}
                 freeSolo
                 renderInput={(params) => (
-                  <TextField
-                    color="success"
-                    {...params}
-                    label="Free solo with text demo"
-                  />
+                  <TextField color="success" {...params} label="Device Type" />
                 )}
               />
             </Box>
@@ -219,7 +262,7 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 selectOnFocus
                 clearOnBlur
                 handleHomeEndKeys
-                id="free-solo-with-text-demo"
+                id="model"
                 options={modelNumbers ? modelNumbers : l}
                 getOptionLabel={(option) => {
                   if (typeof option === 'string') {
@@ -236,69 +279,7 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 sx={{ width: 300, mx: 'auto' }}
                 freeSolo
                 renderInput={(params) => (
-                  <TextField
-                    color="success"
-                    {...params}
-                    label="Free solo with text demo"
-                  />
-                )}
-              />
-            </Box>
-            <Box sx={{ mt: 1 }}>
-              <Autocomplete
-                value={model}
-                onChange={(event, newValue) => {
-                  if (typeof newValue === 'string') {
-                    setModel({
-                      title: newValue,
-                    });
-                  } else if (newValue && newValue.inputValue) {
-                    setModel({
-                      title: newValue.inputValue,
-                    });
-                  } else {
-                    setModel(newValue);
-                  }
-                }}
-                filterOptions={(options, params) => {
-                  const filtered = filter(options, params);
-                  const { inputValue } = params;
-                  const isExisting = options.some(
-                    (option) => inputValue === option.title
-                  );
-                  if (inputValue !== '' && !isExisting) {
-                    filtered.push({
-                      inputValue,
-                      title: `Add "${inputValue}"`,
-                    });
-                  }
-                  return filtered;
-                }}
-                selectOnFocus
-                clearOnBlur
-                handleHomeEndKeys
-                id="free-solo-with-text-demo"
-                options={l}
-                getOptionLabel={(option) => {
-                  if (typeof option === 'string') {
-                    return option;
-                  }
-                  if (option.inputValue) {
-                    return option.inputValue;
-                  }
-                  return option.title;
-                }}
-                renderOption={(props, option) => (
-                  <li {...props}>{option.title}</li>
-                )}
-                sx={{ width: 300, mx: 'auto' }}
-                freeSolo
-                renderInput={(params) => (
-                  <TextField
-                    color="success"
-                    {...params}
-                    label="Free solo with text demo"
-                  />
+                  <TextField color="success" {...params} label="Model Number" />
                 )}
               />
             </Box>
@@ -314,6 +295,14 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 color="success"
               >
                 {sent ? 'Submitting…' : 'Submit'}
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={handleRemove}
+                disabled={sent}
+                color="error"
+              >
+                {sent ? 'Submitting…' : 'Remove'}
               </Button>
             </DialogActions>
           </Box>

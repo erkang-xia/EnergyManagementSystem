@@ -169,7 +169,7 @@ const LocationDash = ({ location_id }) => {
               <DeviceEvent />
             </Paper>
             <Paper
-              sx={{ p: 2, display: 'flex', flexDirection: 'column' }}
+              sx={{ p: 2, mt: 3, display: 'flex', flexDirection: 'column' }}
               style={{
                 background:
                   'linear-gradient(to right bottom, #ECFADC,#ECFADC,#ddf7be)',

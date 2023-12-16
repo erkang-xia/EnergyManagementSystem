@@ -12,7 +12,15 @@ const rightLink = {
   ml: 3,
 };
 
-function AppAppBar({ ifHome, ifAuth, toolbar, ifAdd }) {
+function AppAppBar({
+  ifHome,
+  ifAuth,
+  toolbar,
+  ifAdd,
+  locationIds,
+  types,
+  modelNumbers,
+}) {
   return (
     <div>
       <AppBar position="fixed" color="transparent">
@@ -31,7 +39,11 @@ function AppAppBar({ ifHome, ifAuth, toolbar, ifAdd }) {
 
           {ifAdd ? (
             <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-              <AddDevice />
+              <AddDevice
+                locationIds={locationIds}
+                types={types}
+                modelNumbers={modelNumbers}
+              />
             </Box>
           ) : null}
 

@@ -19,7 +19,6 @@ import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import LocationDash from './LocationDash';
 import DeviceDash from './DeviceDash';
-import AddDevice from '../StartPage/AddDevice';
 
 export default function Dashboard() {
   const [open, setOpen] = React.useState({});
@@ -112,7 +111,13 @@ export default function Dashboard() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppAppBar ifAuth={true} ifAdd={true} />
+      <AppAppBar
+        ifAuth={true}
+        ifAdd={true}
+        locationIds={locationIds}
+        types={types}
+        modelNumbers={modelNumbers}
+      />
 
       <Box component="main" sx={{ flexGrow: 1, p: 2, ml: 2 }}>
         <Toolbar />
@@ -121,19 +126,12 @@ export default function Dashboard() {
             key={locationId}
             sx={{ width: '100%', maxWidth: 360 }}
             component="nav"
-
-            // subheader={
-            // //   <ListSubheader component="div">
-            // //     Location: {locations[locationId][0].Address}
-            // //   </ListSubheader>
-            // }
           >
             <ListItemButton
               onClick={() => {
                 setChartLoca(locationId);
                 setDevice(0);
               }}
-              //selected={chartLoca === locationId} // Highlight if selected
               sx={{
                 ml: -3,
                 backgroundColor:
