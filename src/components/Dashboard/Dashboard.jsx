@@ -63,7 +63,7 @@ export default function Dashboard() {
 
           return {
             distinctLocationIds: Array.from(locationIds).map((id) => ({
-              title: id,
+              title: `${id}`,
             })),
             distinctTypes: Array.from(types).map((type) => ({ title: type })),
             distinctModelNumbers: Array.from(modelNumbers).map(

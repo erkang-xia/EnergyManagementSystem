@@ -40,7 +40,7 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
     handleClose();
   };
 
-  const l = [{ title: '101' }, { title: '102' }];
+  const l = [{ title: '105' }, { title: '102' }];
 
   return (
     <div>
