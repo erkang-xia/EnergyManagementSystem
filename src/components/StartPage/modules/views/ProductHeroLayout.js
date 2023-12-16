@@ -1,0 +1,73 @@
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+
+import Container from '@mui/material/Container';
+import Box from '@mui/material/Box';
+
+const ProductHeroLayoutRoot = styled('section')(({ theme }) => ({
+  color: '#013220',
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  [theme.breakpoints.up('sm')]: {
+    height: '100vh',
+    minHeight: 500,
+    maxHeight: 1800,
+  },
+}));
+
+const Background = styled(Box)({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  backgroundSize: '100%',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'left top',
+  zIndex: -2,
+});
+
+function ProductHeroLayout(props) {
+  const { sxBackground, children } = props;
+
+  return (
+    <ProductHeroLayoutRoot>
+      <Container
+        sx={{
+          mt: 28,
+          mb: 14,
+        }}
+      >
+        {children}
+        <Box
+          sx={{
+            position: 'absolute',
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+            backgroundColor: 'common.gray',
+            opacity: 0.5,
+            zIndex: -1,
+          }}
+        />
+        <Background sx={sxBackground} />
+      </Container>
+    </ProductHeroLayoutRoot>
+  );
+}
+
+ProductHeroLayout.propTypes = {
+  children: PropTypes.node,
+  sxBackground: PropTypes.oneOfType([
+    PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.func, PropTypes.object, PropTypes.bool])
+    ),
+    PropTypes.func,
+    PropTypes.object,
+  ]),
+};
+
+export default ProductHeroLayout;
