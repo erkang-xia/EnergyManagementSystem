@@ -1,10 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-import AppBar from '../components/AppBar';
-import Toolbar from '../components/Toolbar';
-import AddDevice from '../../AddDevice';
-import { Button } from '@mui/material';
+import AppBar from '../StartPage/modules/components/AppBar';
+import Toolbar from '../StartPage/modules/components/Toolbar';
 
 const rightLink = {
   fontSize: 16,
@@ -12,7 +10,7 @@ const rightLink = {
   ml: 3,
 };
 
-function AppAppBar({ ifHome, ifAuth, toolbar, ifAdd }) {
+function TopBar({ ifHome, ifAuth, toolbar }) {
   return (
     <div>
       <AppBar position="fixed" color="transparent">
@@ -25,20 +23,13 @@ function AppAppBar({ ifHome, ifAuth, toolbar, ifAdd }) {
             href="/signup"
             sx={{ mt: ifHome ? 5 : -1, fontSize: ifHome ? 120 : 25 }}
           >
-            SHEMS
+            {'SHEMS'}
           </Link>
-          <Toolbar />
-
-          {ifAdd ? (
-            <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
-              <AddDevice />
-            </Box>
-          ) : null}
 
           {ifAuth ? (
-            <Box sx={{ fontWeight: 'bold' }}>
-              <Link underline="none" href="/login" sx={rightLink}>
-                Log Out
+            <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+              <Link variant="h6" underline="none" href="/login" sx={rightLink}>
+                {'Log Out'}
               </Link>
             </Box>
           ) : (
@@ -65,4 +56,4 @@ function AppAppBar({ ifHome, ifAuth, toolbar, ifAdd }) {
   );
 }
 
-export default AppAppBar;
+export default TopBar;

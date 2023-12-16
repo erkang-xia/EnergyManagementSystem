@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import axios from 'axios';
+import AppAppBar from '../StartPage/modules/views/AppAppBar';
 
 // import ListSubheader from '@mui/material/ListSubheader';
 import List from '@mui/material/List';
@@ -111,31 +112,16 @@ export default function Dashboard() {
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      >
-        <Toolbar>
-          <Typography variant="h6" noWrap component="div">
-            Dashboard
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Box>
-        <AddDevice
-          locationIds={locationIds}
-          types={types}
-          modelNumbers={modelNumbers}
-        />
-      </Box>
+      <AppAppBar ifAuth={true} ifAdd={true} />
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 2, ml: 2 }}>
         <Toolbar />
         {Object.keys(locations).map((locationId) => (
           <List
             key={locationId}
-            sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
+            sx={{ width: '100%', maxWidth: 360 }}
             component="nav"
+
             // subheader={
             // //   <ListSubheader component="div">
             // //     Location: {locations[locationId][0].Address}

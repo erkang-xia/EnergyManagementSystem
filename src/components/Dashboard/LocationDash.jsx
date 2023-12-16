@@ -126,6 +126,9 @@ const LocationDash = ({ location_id }) => {
                 flexDirection: 'column',
                 height: 240,
               }}
+              style={{
+                background: 'linear-gradient(to right bottom,#FFFFFF,#f4fceb)',
+              }}
             >
               <Chart
                 data={chartData}
@@ -144,6 +147,9 @@ const LocationDash = ({ location_id }) => {
                 flexDirection: 'column',
                 height: 240,
               }}
+              style={{
+                background: 'linear-gradient(to right bottom,#f4fceb, #ECFADC)',
+              }}
             >
               <Deposits
                 cost={'$' + cost}
@@ -154,10 +160,21 @@ const LocationDash = ({ location_id }) => {
           </Grid>
           {/* Recent DeviceEvent */}
           <Grid item xs={12}>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <Paper
+              sx={{ p: 2, display: 'flex', flexDirection: 'column' }}
+              style={{
+                background: 'linear-gradient(to right bottom,#f4fceb, #ECFADC)',
+              }}
+            >
               <DeviceEvent />
             </Paper>
-            <Paper sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
+            <Paper
+              sx={{ p: 2, display: 'flex', flexDirection: 'column' }}
+              style={{
+                background:
+                  'linear-gradient(to right bottom, #ECFADC,#ECFADC,#ddf7be)',
+              }}
+            >
               <BChart barData={barData} />
             </Paper>
           </Grid>

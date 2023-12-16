@@ -44,10 +44,26 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
 
   return (
     <div>
-      <Button onClick={handleClickOpen}>Add New Device</Button>
+      <Button onClick={handleClickOpen} variant="contained" color="success">
+        <Box sx={{ fontWeight: 'medium' }}>Add New Device</Box>
+      </Button>
       <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        <DialogTitle>Add a New Device</DialogTitle>
-        <DialogContent>
+        {/* <DialogTitle
+          // sx={{
+          //   color: '#008000',
+          // }}
+          sx={{
+            //You can copy the code below in your theme
+            bgcolor: '#ECFADC',
+          }}
+        >
+          Add a New Device
+        </DialogTitle> */}
+        <DialogContent
+          style={{
+            background: 'linear-gradient(to right bottom,#FFFFFF, #ECFADC)',
+          }}
+        >
           <Box
             component="form"
             onSubmit={handleSubmit}
@@ -104,7 +120,11 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 sx={{ width: 300, mx: 'auto' }}
                 freeSolo
                 renderInput={(params) => (
-                  <TextField {...params} label="Free solo with text demo" />
+                  <TextField
+                    color="success"
+                    {...params}
+                    label="Free solo with text demo"
+                  />
                 )}
               />
             </Box>
@@ -158,7 +178,11 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 sx={{ width: 300, mx: 'auto' }}
                 freeSolo
                 renderInput={(params) => (
-                  <TextField {...params} label="Free solo with text demo" />
+                  <TextField
+                    color="success"
+                    {...params}
+                    label="Free solo with text demo"
+                  />
                 )}
               />
             </Box>
@@ -212,7 +236,11 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 sx={{ width: 300, mx: 'auto' }}
                 freeSolo
                 renderInput={(params) => (
-                  <TextField {...params} label="Free solo with text demo" />
+                  <TextField
+                    color="success"
+                    {...params}
+                    label="Free solo with text demo"
+                  />
                 )}
               />
             </Box>
@@ -266,14 +294,25 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
                 sx={{ width: 300, mx: 'auto' }}
                 freeSolo
                 renderInput={(params) => (
-                  <TextField {...params} label="Free solo with text demo" />
+                  <TextField
+                    color="success"
+                    {...params}
+                    label="Free solo with text demo"
+                  />
                 )}
               />
             </Box>
 
             <DialogActions>
-              <Button onClick={handleClose}>Cancel</Button>
-              <Button type="submit" disabled={sent} color="primary">
+              <Button variant="text" onClick={handleClose} color="success">
+                Cancel
+              </Button>
+              <Button
+                variant="outlined"
+                type="submit"
+                disabled={sent}
+                color="success"
+              >
                 {sent ? 'Submitting…' : 'Submit'}
               </Button>
             </DialogActions>
