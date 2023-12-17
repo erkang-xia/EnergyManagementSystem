@@ -5,6 +5,7 @@ import AppBar from '../components/AppBar';
 import Toolbar from '../components/Toolbar';
 import AddDevice from '../../AddDevice';
 import { Button } from '@mui/material';
+import AddLocation from '../../../Add/AddLocation';
 
 const rightLink = {
   fontSize: 16,
@@ -17,6 +18,7 @@ function AppAppBar({
   ifAuth,
   toolbar,
   ifAdd,
+  ifLocation,
   locationIds,
   types,
   modelNumbers,
@@ -36,16 +38,22 @@ function AppAppBar({
             SHEMS
           </Link>
           <Toolbar />
+          <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+            {ifLocation ? (
+              <Box sx={{ mx: 1 }}>
+                {' '}
+                <AddLocation />{' '}
+              </Box>
+            ) : null}
 
-          {ifAdd ? (
-            <Box sx={{ flex: 1, display: 'flex', justifyContent: 'flex-end' }}>
+            {ifAdd ? (
               <AddDevice
                 locationIds={locationIds}
                 types={types}
                 modelNumbers={modelNumbers}
               />
-            </Box>
-          ) : null}
+            ) : null}
+          </Box>
 
           {ifAuth ? (
             <Box sx={{ fontWeight: 'bold' }}>

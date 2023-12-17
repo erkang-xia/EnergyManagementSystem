@@ -114,6 +114,7 @@ export default function Dashboard() {
       <AppAppBar
         ifAuth={true}
         ifAdd={true}
+        ifLocation={true}
         locationIds={locationIds}
         types={types}
         modelNumbers={modelNumbers}
