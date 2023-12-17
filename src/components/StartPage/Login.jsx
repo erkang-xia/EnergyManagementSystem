@@ -33,6 +33,7 @@ function Login() {
 
   const handleSubmit = async (values, form) => {
     const { email, password } = values;
+    console.log('About to firt api call');
     const endpoint = 'http://localhost:8800/login';
 
     try {

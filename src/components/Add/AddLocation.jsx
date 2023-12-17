@@ -31,6 +31,7 @@ export default function AddLocation({ Address, Sq, Bed, Occup, Zip }) {
   };
 
   const addLocation = async () => {
+    console.log([Address, Sq, Bed, Occup, Zip]);
     try {
       const response = await axios.post(
         `http://localhost:8800/addLocation`,
@@ -93,6 +94,7 @@ export default function AddLocation({ Address, Sq, Bed, Occup, Zip }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log('click submit');
 
     try {
       await addLocation(); // Wait for addDevice to complete
@@ -161,6 +163,7 @@ export default function AddLocation({ Address, Sq, Bed, Occup, Zip }) {
                   } else {
                     setAddress(newValue);
                   }
+                  console.log(address);
                 }}
                 filterOptions={(options, params) => {
                   const filtered = filter(options, params);

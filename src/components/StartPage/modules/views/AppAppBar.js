@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import AppBar from '../components/AppBar';
 import Toolbar from '../components/Toolbar';
-import AddDevice from '../../AddDevice';
+import AddDevice from '../../../Add/AddDevice';
 import { Button } from '@mui/material';
 import AddLocation from '../../../Add/AddLocation';
 

@@ -12,9 +12,11 @@ import FormButton from './modules/form/FormButton';
 import FormFeedback from './modules/form/FormFeedback';
 import withRoot from './modules/withRoot';
 import axios from 'axios';
+import { useNavigate } from 'react-router';
 
 function SignUp() {
   const [sent, setSent] = React.useState(false);
+  const navigate = useNavigate();
 
   const validate = (values) => {
     const errors = required(
@@ -49,9 +51,10 @@ function SignUp() {
         // Handle successful response here
         console.log(response.data);
         // Store the JWT token in local storage
-        localStorage.setItem('token', response.data.token);
+        //localStorage.setItem('token', response.data.token);
 
         console.log('Registration successful');
+        navigate('/dashboard');
       } else {
         // Handle non-200 responses here
         console.error('Failed to send data', response.data);

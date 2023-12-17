@@ -4,7 +4,7 @@ import Login from './components/StartPage/Login';
 import Dashboard from './components/Dashboard/Dashboard';
 import Home from './components/StartPage/Home';
 import Signup from './components/StartPage/Signup';
-import AddDevice from './components/StartPage/AddDevice';
+import AddDevice from './components/Add/AddDevice';
 import AddLocation from './components/Add/AddLocation';
 function App() {
   return (

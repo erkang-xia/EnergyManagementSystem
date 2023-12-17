@@ -105,7 +105,23 @@ export default function Dashboard() {
   };
 
   if (error) {
-    return <div>Error: {error}</div>;
+    return (
+      <Box sx={{ display: 'flex' }}>
+        <CssBaseline />
+        <AppAppBar
+          ifAuth={true}
+          ifAdd={true}
+          ifLocation={true}
+          locationIds={locationIds}
+          types={types}
+          modelNumbers={modelNumbers}
+        />
+        <Box component="main" sx={{ flexGrow: 1, p: 2, ml: 2 }}>
+          <Toolbar />
+          Welcome! Click location to add your first location! then click device
+        </Box>
+      </Box>
+    );
   }
 
   return (
