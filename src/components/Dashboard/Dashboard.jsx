@@ -167,6 +167,7 @@ export default function Dashboard() {
                   maxWidth: '200px', // Adjust this width as needed
                 }}
                 primary={locations[locationId][0].Address}
+                secondary={'Location ID: ' + locationId}
               />
               {open[locationId] ? (
                 <ExpandLess onClick={() => handleClick(locationId)} />
@@ -189,6 +190,7 @@ export default function Dashboard() {
                     </ListItemIcon>
                     <ListItemText
                       primary={`Device: ${device.Type} - ${device.ModelNumber}`}
+                      secondary={`Device ID: ${device.DeviceID}`}
                     />
                   </ListItemButton>
                 ))}

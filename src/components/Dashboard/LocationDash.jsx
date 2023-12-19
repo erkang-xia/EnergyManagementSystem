@@ -47,9 +47,10 @@ const LocationDash = ({ location_id }) => {
         );
 
         setChartData(response.data); // Update the chart data with the fetched data
+        setError(null);
       } catch (error) {
         console.error('Error fetching customer dashboard data:', error);
-        setError('Error fetching data');
+        setError('No Data has been generated, please comback later');
       }
     };
 
@@ -63,9 +64,10 @@ const LocationDash = ({ location_id }) => {
         );
 
         setCost(response.data[0].TotalCost);
+        //setError(null);
       } catch (error) {
         console.error('Error fetching customer dashboard data:', error);
-        setError('Error fetching data');
+        setError('No Data has been generated, please comback later');
       }
     };
 
@@ -84,9 +86,12 @@ const LocationDash = ({ location_id }) => {
             pv: item.TotalEnergyConsumed,
           }))
         );
+        //setError(null);
       } catch (error) {
         console.error('Error fetching customer dashboard data:', error);
-        setError('Error fetching data');
+        setError(
+          'No data has been generated for Device usage, Please comeback later'
+        );
       }
     };
 
@@ -96,10 +101,6 @@ const LocationDash = ({ location_id }) => {
       getDeviceTypeUsage();
     }
   }, [location_id]);
-
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
 
   return (
     <Box
@@ -117,7 +118,6 @@ const LocationDash = ({ location_id }) => {
       <Toolbar />
       <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
         <Grid container spacing={3}>
-          {/* Chart */}
           <Grid item xs={12} md={8} lg={9}>
             <Paper
               sx={{
@@ -132,7 +132,7 @@ const LocationDash = ({ location_id }) => {
             >
               <Chart
                 data={chartData}
-                title={'Today Energy Used'}
+                title={error ? error : 'Today Energy Used'}
                 ylabel={'Total Energy Used'}
                 dataKey="Hour"
               />
@@ -152,7 +152,7 @@ const LocationDash = ({ location_id }) => {
               }}
             >
               <Deposits
-                cost={'$' + cost}
+                cost={error ? 'No Data' : '$' + cost}
                 title="Current Cost"
                 comment="19 Dec 2023"
               />

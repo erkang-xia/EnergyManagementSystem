@@ -16,7 +16,7 @@ export default function ProductHero() {
       {/* Increase the network loading priority of the background image. */}
 
       <Typography align="right" variant="h2" color="#013220">
-        Start Save today
+        Start Saving today
       </Typography>
       <Typography
         align="right"

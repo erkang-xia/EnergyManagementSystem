@@ -32,7 +32,7 @@ function AppAppBar({
             variant="h6"
             underline="none"
             color="success.dark"
-            href="/signup"
+            href="/"
             sx={{ mt: ifHome ? 5 : -1, fontSize: ifHome ? 120 : 25 }}
           >
             SHEMS

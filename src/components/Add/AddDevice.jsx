@@ -9,6 +9,8 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
+  FormHelperText,
 } from '@mui/material';
 import axios from 'axios';
 
@@ -18,6 +20,7 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
   const [locationID, setLocationID] = React.useState(null);
   const [type, setType] = React.useState(null);
   const [model, setModel] = React.useState(null);
+  const [deviceid, setDeviceid] = React.useState(null);
   const [open, setOpen] = useState(false);
   const [sent, setSent] = useState(false);
   const [err, setErr] = useState();
@@ -55,11 +58,9 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
   const removeDevice = async () => {
     try {
       const response = await axios.post(
-        `http://localhost:8800/removeDevice`,
+        `http://localhost:8800/removeDevicebyId`,
         {
-          LocationID: locationID.title,
-          Type: type.title,
-          ModelNumber: model.title,
+          DeviceID: deviceid.title,
         },
         {
           withCredentials: true,
@@ -120,6 +121,65 @@ export default function AddDevice({ locationIds, types, modelNumbers }) {
             noValidate
             sx={{ mt: 2 }}
           >
+            <Box sx={{ mt: 1 }}>
+              <Autocomplete
+                value={deviceid}
+                onChange={(event, newValue) => {
+                  if (typeof newValue === 'string') {
+                    setDeviceid({
+                      title: newValue,
+                    });
+                  } else if (newValue && newValue.inputValue) {
+                    setDeviceid({
+                      title: newValue.inputValue,
+                    });
+                  } else {
+                    setDeviceid(newValue);
+                  }
+                }}
+                filterOptions={(options, params) => {
+                  const filtered = filter(options, params);
+                  const { inputValue } = params;
+                  const isExisting = options.some(
+                    (option) => inputValue === option.title
+                  );
+                  if (inputValue !== '' && !isExisting) {
+                    filtered.push({
+                      inputValue,
+                      title: `Add "${inputValue}"`,
+                    });
+                  }
+                  return filtered;
+                }}
+                selectOnFocus
+                clearOnBlur
+                handleHomeEndKeys
+                id="deviceID"
+                options={locationIds ? locationIds : l}
+                getOptionLabel={(option) => {
+                  if (typeof option === 'string') {
+                    return option;
+                  }
+                  if (option.inputValue) {
+                    return option.inputValue;
+                  }
+                  return option.title;
+                }}
+                renderOption={(props, option) => (
+                  <li {...props}>{option.title}</li>
+                )}
+                sx={{ width: 300, mx: 'auto' }}
+                freeSolo
+                renderInput={(params) => (
+                  <FormControl>
+                    <FormHelperText sx={{ ml: 0.5 }}>
+                      Only required for device removal
+                    </FormHelperText>
+                    <TextField color="success" {...params} label="Device ID" />
+                  </FormControl>
+                )}
+              />
+            </Box>
             <Box sx={{ mt: 1 }}>
               <Autocomplete
                 value={locationID}
